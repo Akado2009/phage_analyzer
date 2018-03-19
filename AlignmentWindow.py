@@ -59,6 +59,16 @@ class AlignmentWindow(QtGui.QMainWindow):
         reverseComplement.triggered.connect(self.reverse_complement)
 
         self.toolBar.addAction(reverseComplement)
+
+        moveUp = QtGui.QAction('Move up', self)
+        moveUp.triggered.connect(self.move_up)
+
+        self.toolBar.addAction(moveUp)
+
+        moveDown = QtGui.QAction('Move down', self)
+        moveDown.triggered.connect(self.move_down)
+
+        self.toolBar.addAction(moveDown)
         # testPopup = QtGui.QAction('Popup', self)
         # testPopup.triggered.connect(self.pop_up_editor)
         #
@@ -102,15 +112,29 @@ class AlignmentWindow(QtGui.QMainWindow):
         return rev_comp_sequence
 
     def reverse_complement(self):
+        rows = self.alignment_table.selectedIndexes()
+        selected_rows = set([_row.row() for _row in rows])
 
-        row = self.alignment_table.selectedIndexes()
-        if len(row) != 0:
-            for _row in row:
-                self.table_data[_row.row()] = list(self.rev_comp(self.table_data[_row.row()]))
+        if len(selected_rows) != 0:
+            for _row in selected_rows:
+                self.table_data[_row] = list(self.rev_comp(self.table_data[_row]))
         else:
             for i in range(len(self.table_data)):
                 self.table_data[i] = list(self.rev_comp(self.table_data[i]))
         self.alignment_table.model().layoutChanged.emit()
+
+    def move_up(self):
+        # rows = self.alignment_table.selectedIndexes()
+        # selected_rows = set([_row.row() for _row in rows])
+        #
+        # for _row in selected_rows:
+        #     if _row != 0 and _row != len(self.table_data) - 1:
+        #         self.table_data[_row], self.table_data[_row - 1] = self.table_data[_row - 1], self.table_data[_row]
+        print(1)
+        # self.alignment_table.model().layoutChanged.emit()
+
+    def move_down(self):
+        print(2)
 
     def close_application(self):
         choice = QtGui.QMessageBox.question(self, 'Quit', 'Do you sure want to exit?', QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
@@ -132,7 +156,8 @@ class AlignmentWindow(QtGui.QMainWindow):
         tv = QtGui.QTableView()
 
         hor_header = ['{}'.format(i) for i in range(len(self.table_data[0]))]
-        vert_header = ['Sequence number {}'.format(i) for i in range(len(self.table_data))]
+        vert_header = ['Sequence number {}'.format(i) for i in range(len(self.table_data) - 1)]
+        vert_header.append('CONSENSUS SEQUENCE')
         table_model = alignment_model(self.table_data, hor_header, vert_header, self)
         tv.setModel(table_model)
 

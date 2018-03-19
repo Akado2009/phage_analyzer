@@ -18,4 +18,5 @@ Programmatically:
   2. consensus - additional row in the table (last one? first one?)
   2. what are the conflisc in the 1st question?
   3. PWM - in additional window? (Another instance of main, but without closing!)
-  4. Last one easy.
+  4. Move UP && Move DOWN functionality
+  5. Include header (vert + hor) from fasta file
