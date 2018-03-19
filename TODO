@@ -1,0 +1,21 @@
+1. Gene annotation?
+      At all steps retain gene positions and functional annotation.
+      Map these annotations to the consensus alignment. Identify conflicts and allow the user to
+      select genes and annotations.
+
+2. Profile Analysis
+      Creation of positional weight matrices (and logos) from user-selected portions of the
+      alignment or user-supplied sequences.
+      Identification of candidate sites in aligned sequences using a PWM and a user-supplied
+      threshold. Identification of conserved sites with user-supplied threshold on the number of
+      sequences having a site in the given alignment position.
+      Refinement of PWM by manual selection (with an editing tool) of sites to be added.
+
+
+Programmatically:
+
+  1. how to show logos? #logos are created
+  2. consensus - additional row in the table (last one? first one?)
+  2. what are the conflisc in the 1st question?
+  3. PWM - in additional window? (Another instance of main, but without closing!)
+  4. Last one easy.
